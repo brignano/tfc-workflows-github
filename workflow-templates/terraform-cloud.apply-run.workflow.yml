@@ -59,3 +59,12 @@ jobs:
         with:
           run: ${{ steps.create-run.outputs.run_id }}
           comment: "Apply Run from GitHub Actions CI ${{ github.sha }}"
+
+      ## Check Run Status, if not applied fail the job
+      - id: terraform-cloud-check-run-status
+        if: ${{ steps.apply.outputs.run_status != 'applied'}}
+        run: |
+          echo "Terraform Cloud Run Failed or Requires Further Attention"
+          echo "Run Status: '${{ steps.apply.outputs.run_status }}'"
+          echo "${{ steps.create-run.outputs.run_link }}"
+          exit 1
