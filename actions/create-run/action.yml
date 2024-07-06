@@ -47,6 +47,11 @@ inputs:
     required: false
     description: "Limit the planning operation to only the given module, resource, or resource instance and all of its dependencies. You can use this option multiple times to include more than one object. This is for exceptional use only. e.g. -target=aws_s3_bucket.foo"
     default: ""
+  comment:
+    required: false
+    description: "An optional comment about the run."
+    default: ""
+    
 
 outputs:
   status:
@@ -91,3 +96,4 @@ runs:
   - -save-plan=${{ inputs.save_plan }}
   - -is-destroy=${{ inputs.is_destroy }}
   - -target=${{ inputs.target }}
+  - -comment=${{ inputs.comment }}
